@@ -201,7 +201,7 @@ local fontAttributeSet = {
 local auraFiltering = {
 	[1] = "",	[""] = 1,
 	[2] = "PLAYER",	["PLAYER"] = 2,
-	[3] = "RAID",	["RAID"] = 3,
+	[3] = "|RAID",	["|RAID"] = 3,
 }
 local buffFilteringList = { "모두 표시", "내가 시전한것만", "시전 가능한것만" }
 local debuffFilteringList = { "모두 표시", "내가 시전한것만", "해제 가능한것만" }
@@ -1836,6 +1836,16 @@ function Option:CreateUnitBuffMenu(menu, parent)
 			return not unitsdb[Option.unit].buffUse
 		end
 	end
+
+	menu.important = LBO:CreateWidget("CheckBox", parent, "중요 버프만 보기", "중요 버프만 표기", nil, isnotBuffUse, nil,
+		function() return not unitsdb[Option.unit].buffImportant end,
+		function(v)
+			unitsdb[Option.unit].buffImportant = not v
+			setCoreValue(Option.unit, "UpdateSkinAura", "buff")
+		end
+	)
+	menu.important:SetPoint("TOPLEFT", 85, -5)
+
 	menu.num = LBO:CreateWidget("Slider", parent, "표시할 버프 수", "표시할 버프 수를 설정합니다.", nil, isnotBuffUse, nil,
 		function() return unitsdb[Option.unit].buffNum, 0, 40, 1, "개" end,
 		function(v)
@@ -1971,6 +1981,14 @@ function Option:CreateUnitDebuffMenu(menu, parent)
 			return not unitsdb[Option.unit].debuffUse
 		end
 	end
+	menu.important = LBO:CreateWidget("CheckBox", parent, "중요 디버프만 보기", "중요 디버프만 표기", nil, isnotDebuffUse, nil,
+		function() return not unitsdb[Option.unit].debuffImportant end,
+		function(v)
+			unitsdb[Option.unit].debuffImportant = not v
+			setCoreValue(Option.unit, "UpdateSkinAura", "buff")
+		end
+	)
+	menu.important:SetPoint("TOPLEFT", 85, -5)
 	menu.num = LBO:CreateWidget("Slider", parent, "표시할 디버프 수", "표시할 디버프 수를 설정합니다.", nil, isnotDebuffUse, nil,
 		function() return unitsdb[Option.unit].debuffNum, 0, 40, 1, "개" end,
 		function(v)
@@ -2040,11 +2058,11 @@ function Option:CreateUnitDebuffMenu(menu, parent)
 			return Option.unit ~= "player" and Option.unit ~= "target" and Option.unit ~= "focus" and Option.unit ~= "party" and Option.unit ~= "boss"
 		end
 	end
-	menu.mydebuff = LBO:CreateWidget("Heading", parent, "내가 시전한 디버프", nil, isnotMyDebuff, isnotDebuffUse)
+	menu.mydebuff = LBO:CreateWidget("Heading", parent, "내가 시전한/받은 디버프", nil, isnotMyDebuff, isnotDebuffUse)
 	menu.mydebuff:SetScale(1.2)
 	menu.mydebuff:SetPoint("TOPLEFT", menu.small, "BOTTOMLEFT", 0, -22)
 	menu.mydebuff:SetPoint("TOPRIGHT", menu.countSize, "BOTTOMRIGHT", 0, -22)
-	menu.big = LBO:CreateWidget("Slider", parent, "내가 시전한 디버프 확대", "내가 시전한 디버프를 더 크게 표시합니다.", isnotMyDebuff, isnotDebuffUse, nil,
+	menu.big = LBO:CreateWidget("Slider", parent, "내가 시전한/받은 디버프 확대", "내가 시전한/받은 디버프를 더 크게 표시합니다.", isnotMyDebuff, isnotDebuffUse, nil,
 		function()
 			return unitsdb[Option.unit].debuffBigScale * 100, 100, 200, 1, "%"
 		end,
@@ -2054,7 +2072,7 @@ function Option:CreateUnitDebuffMenu(menu, parent)
 		end
 	)
 	menu.big:SetPoint("TOPLEFT", menu.mydebuff, "BOTTOMLEFT", 0, 10)
-	menu.bigTexture = LBO:CreateWidget("CheckBox", parent, "쿨다운 텍스쳐 보기", "내가 시전한 디버프의 시계 모양 텍스터를 보이거나 숨깁니다.", isnotMyDebuff, isnotDebuffUse, nil,
+	menu.bigTexture = LBO:CreateWidget("CheckBox", parent, "쿨다운 텍스쳐 보기", "내가 시전한/받은 디버프의 시계 모양 텍스터를 보이거나 숨깁니다.", isnotMyDebuff, isnotDebuffUse, nil,
 		function() return not unitsdb[Option.unit].debuffHiddenBigCooldownTexture end,
 		function(v)
 			unitsdb[Option.unit].debuffHiddenBigCooldownTexture = not v
@@ -2062,7 +2080,7 @@ function Option:CreateUnitDebuffMenu(menu, parent)
 		end
 	)
 	menu.bigTexture:SetPoint("TOPRIGHT", menu.mydebuff, "BOTTOMRIGHT", 0, 10)
-	menu.cdUse = LBO:CreateWidget("CheckBox", parent, "남은 시간 보기", "내가 시전한 디버프의 남은 시간을 표시합니다. (10분 미만의 시간만 표시됩니다)", isnotMyDebuff, isnotDebuffUse, nil,
+	menu.cdUse = LBO:CreateWidget("CheckBox", parent, "남은 시간 보기", "내가 시전한/받은 디버프의 남은 시간을 표시합니다. (10분 미만의 시간만 표시됩니다)", isnotMyDebuff, isnotDebuffUse, nil,
 		function() return unitsdb[Option.unit].debuffCooldownTextUse end,
 		function(v)
 			unitsdb[Option.unit].debuffCooldownTextUse = v
@@ -2071,7 +2089,7 @@ function Option:CreateUnitDebuffMenu(menu, parent)
 		end
 	)
 	menu.cdUse:SetPoint("TOP", menu.big, "BOTTOM", 0, -5)
-	menu.cd = LBO:CreateWidget("Font", parent, "남은 시간 글꼴", "내가 시전한 디버프의 남은 시간 글꼴을 설정합니다.", isnotMyDebuff,
+	menu.cd = LBO:CreateWidget("Font", parent, "남은 시간 글꼴", "내가 시전한/받은 디버프의 남은 시간 글꼴을 설정합니다.", isnotMyDebuff,
 		function()
 			if not isnotMyDebuff() then
 				return not unitsdb[Option.unit].debuffCooldownTextUse

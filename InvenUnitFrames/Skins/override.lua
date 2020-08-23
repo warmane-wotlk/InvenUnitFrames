@@ -66,7 +66,7 @@ InvenUnitFrames.overrideSkin = {
 		self:SetHeight(object.db.sideHeight or height)
 	end]],
 	leftOffset = 0, rightOffset = 0,
-	buffUse = false, buffNum = 0, buffOffset = 2, buffPos = "BOTTOM", buffNum = 0, buffSmallSize = 19, buffBigScale = 1,
+	buffUse = false, buffNum = 0, buffOffset = 2, buffPos = "BOTTOM", buffNum = 0, buffImportant= false, buffSmallSize = 19, buffBigScale = 1,
 	buffCooldownTextUse = false, buffCooldownTextFontSize = 8, buffCooldownTextFontAttribute = "THICKOUTLINE",
 	buffCountTextFontSize = 11,
 	debuffUse = false, debuffNum = 0, debuffOffset = 2, debuffPos = "BOTTOM", debuffNum = 0, debuffSmallSize = 19, debuffBigScale = 1,
@@ -92,7 +92,7 @@ InvenUnitFrames.overrideSkin = {
 
 InvenUnitFrames.overrideUnitSkin = {
 	player = {
-		castingBarUse = false,
+		castingBarUse = false, buffImportant = false;
 	},
 	pet = {
 		buffNum = 2, buffPos = "RIGHT",
@@ -105,17 +105,17 @@ InvenUnitFrames.overrideUnitSkin = {
 		castingBarHeight = 4, castingBarTextUse = false, castingBarTimeUse = false,
 	},
 	target = {
-		buffUse = true, buffNum = 40,
+		buffUse = true, buffNum = 40, buffImportant = true, 
 		debuffUse = true, debuffNum = 40, debuffBigScale = 1.32,
 		debuffCooldownTextUse = true, debuffCooldownTextFontSize = 10,
 	},
 	party = {
-		buffUse = true, buffNum = 10, buffSkipLine = true,
+		buffUse = true, buffNum = 10, buffImportant = true, buffSkipLine = true,
 		debuffUse = true, debuffNum = 10, debuffSkipLine = true,
 		partyOffset = 68,
 	},
 	targettarget = {
-		buffNum = 2, buffPos = "RIGHT",
+		buffNum = 2, buffPos = "RIGHT", buffImportant = true,
 		debuffUse = true, debuffNum = 4, debuffPos = "RIGHT",
 		castingBarHeight = 4, castingBarTextUse = false, castingBarTimeUse = false,
 	},

@@ -190,7 +190,11 @@ InvenUnitFrames:RegisterSkin("Default", "기본", {
 		default = "targettarget",
 		width = 110, scale = 0.65,
 	},
+	player = {
+		buffImportant = false
+	},
 	target = {
+		buffImportant = false,
 		portrait = [[
 			self:SetPoint("RIGHT", object, 0, 0)
 			self:SetWidth(70)

@@ -64,6 +64,15 @@ local ignoreUnitAura = {
 	[72144] = true, -- 주황색 역병 잔류물
 	[77145] = true, -- 녹색 역병 잔류물
 }
+
+local notImportantUnitAura = {
+	[7353] = true, -- 아늑한 장작불
+}
+
+local importantUnitAura = {
+	[53338] = true, -- 사냥꾼, 징표
+}
+
 local skipIgnoreUnit = { player = true, target = true, focus = true, party = true }
 
 local function clearTable(tbl)
@@ -125,8 +134,9 @@ local function createAuraButton(object, isbuff)
 	button.overlay:SetFrameLevel(button:GetFrameLevel() + 2)
 	button.overlay:SetAllPoints()
 	button.cooldown.timer = button.overlay:CreateFontString(nil, "OVERLAY")
-	button.cooldown.timer:SetJustifyH("LEFT")
-	button.cooldown.timer:SetPoint("TOPLEFT", 0, -1)
+	button.cooldown.timer:SetJustifyH("CENTER")
+	button.cooldown.timer:SetJustifyV("MIDDLE")
+	button.cooldown.timer:SetPoint("CENTER", 0, 1)
 	IUF:SetFontString(
 		button.cooldown.timer,
 		getAuraOption(button, "CooldownTextFontFile"),
@@ -298,6 +308,8 @@ local function auraUpdate(object)
 						-- Ignore Aura
 					elseif isFriend and (not skipIgnoreUnit[object.objectType]) and ignoreUnitAura[auraSpellID or -1] then
 						-- Ignore Unit Aura
+					elseif object.buff.important and (auraDuration == 0 or auraDuration >= 300 or notImportantUnitAura[auraSpellID or -1]) and not importantUnitAura[auraSpellID or -1] then
+						-- Ignore non important Aura
 					else
 						-- Show Aura
 						numBuff = numBuff + 1
@@ -354,6 +366,8 @@ local function auraUpdate(object)
 						-- Ignore Aura
 					elseif isFriend and (not skipIgnoreUnit[object.objectType]) and ignoreUnitAura[auraSpellID or -1] then
 						-- Ignore Unit Aura
+					elseif object.debuff.important and (auraDuration == 0 or auraDuration >= 300 or notImportantUnitAura[auraSpellID or -1]) then
+						-- Ignore non important Aura
 					else
 						-- Show Aura
 						numDebuff = numDebuff + 1
@@ -363,11 +377,9 @@ local function auraUpdate(object)
 							object.debuff[numDebuff] = createAuraButton(object)
 						end
 						object.debuff[numDebuff]:SetID(i)
-						if playerUnits[auraCaster or ""] then
+
+						-- always allow to show cooldown text for debuff
 							setAura(object.debuff[numDebuff], auraIcon, auraCount, auraDuration, auraEnumDebuffTime, object.debuff.big, object.debuff.cduse, object.debuff.cdbigtexture, true)
-						else
-							setAura(object.debuff[numDebuff], auraIcon, auraCount, auraDuration, auraEnumDebuffTime, object.debuff.small, object.debuff.cduse, object.debuff.cdsmalltexture)
-						end
 					end
 				else
 					break

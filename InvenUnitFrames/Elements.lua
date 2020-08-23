@@ -327,6 +327,7 @@ local function setupAura(object, aura)
 		object[aura].cdsmalltexture = not object.db[aura.."HiddenSmallCooldownTexture"]
 		object[aura].small = object.db[aura.."SmallSize"]
 		object[aura].filter = object.db[aura.."Filter"]
+		object[aura].important = not object.db[aura.."Important"]
 		if object[aura].filter and object[aura].filter ~= "" then
 			object[aura].filter = "FUL|"..object[aura].filter
 		else

@@ -1,0 +1,12 @@
+## Interface: 30300
+## Title: Inven Unit Frames: Heal
+## Title-koKR: |cFF669900I|cFFFFFFFFnven |cFF669900U|cFFFFFFFFnit |cFF669900F|cFFFFFFFFrames|r: Heal
+## Notes: 인벤 유닛 프레임: 예상 치유량
+## Dependencies: InvenUnitFrames
+## LoadOnDemand: 1
+## OptionalDeps: LibHealComm-4.0
+## X-InvenUnitFrames-Module: Heal
+
+libs\LibHealComm-4.0\LibHealComm-4.0.xml
+
+Core.lua

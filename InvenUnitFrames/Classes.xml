@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+<Script file="Classes\Druid.lua"/>
+<Script file="Classes\Shaman.lua"/>
+<Script file="Classes\DeathKnight.lua"/>
+
+</Ui>

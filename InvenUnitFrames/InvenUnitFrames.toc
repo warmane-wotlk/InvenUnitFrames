@@ -1,0 +1,25 @@
+## Interface: 30300
+## Title: Inven Unit Frames
+## Title-koKR: |cFF669900I|cFFFFFFFFnven |cFF669900U|cFFFFFFFFnit |cFF669900F|cFFFFFFFFrames|r
+## Notes: 인벤 유닛 프레임
+## Author: Inven - InTheBlue
+## Version: 1.2.0
+## SavedVariables: InvenUnitFramesDB
+## SavedVariablesPerCharacter: InvenUnitFramesCharDB
+## OptionalDeps: LibSharedMedia-3.0
+
+libs.xml
+
+Core.lua
+Config.lua
+Media.lua
+Prototype.lua
+Moving.lua
+Handler.lua
+Unit.lua
+Elements.lua
+Modules.lua
+Aura.lua
+
+Classes.xml
+Skins.xml

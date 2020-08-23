@@ -1,0 +1,13 @@
+## Interface: 30300
+## Title: Inven Unit Frames: Option
+## Title-koKR: |cFF669900I|cFFFFFFFFnven |cFF669900U|cFFFFFFFFnit |cFF669900F|cFFFFFFFFrames|r: Option
+## Notes: 인벤 유닛 프레임: 옵션 창
+## Dependencies: InvenUnitFrames
+## LoadOnDemand: 1
+## X-InvenUnitFrames-Module: Option
+
+libs\LibBlueOption-1.0\LibBlueOption-1.0.xml
+
+Core.lua
+Skin.lua
+Preview.lua
